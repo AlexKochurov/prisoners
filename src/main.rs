@@ -31,7 +31,7 @@ fn approximate_karpov() {
     let mut days : f32 = 0.0;
 
     for i in 1..100 {
-        let waiting_for_new_registree = 100.0 / (101 - i) as f32;
+        let waiting_for_new_registree = 100.0 / (100 - i) as f32;
         days += waiting_for_new_registree;
         days += 100.0;
     }
@@ -39,15 +39,16 @@ fn approximate_karpov() {
 }
 
 fn counter_karpov() -> i64 {
-    let mut lighted_prisoners = [false; 100];
+    let mut lighted_prisoners = [false; 99];
     let mut registered_prisoners = 0;
     let mut day_counter = 0i64;
     let mut bulb = false;
 
     let registrator = 99;
+    let mut generator = rand::thread_rng();
 
     while registered_prisoners < 99 {
-        let prisoner = next_prisoner();
+        let prisoner = generator.gen_range(0, 100);
 
         if prisoner == registrator && bulb {
             registered_prisoners += 1;
@@ -62,8 +63,4 @@ fn counter_karpov() -> i64 {
     // println!("All is done after {} days", day_counter);
     // println!("Lighted prisoners: {}", lighted_prisoners.len());
     day_counter
-}
-
-fn next_prisoner() -> i64 {
-    rand::thread_rng().gen_range(0, 100)
 }
